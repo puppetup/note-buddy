@@ -50,7 +50,7 @@ api.post('/notes', (req, res) => {
         status: 'success',
         body: newNote,
       };
-  
+      console.log(response)
       res.json(response);
     } else {
       res.json('Error in posting note');

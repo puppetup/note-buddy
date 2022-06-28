@@ -10,7 +10,7 @@ api.get('/notes', (req,res) => {
         if (err) {
           console.error(err);
         } else {
-        res.json(JSON.parse(data))
+        return res.json(JSON.parse(data))
         }
     }
     )
@@ -27,7 +27,7 @@ api.post('/notes', (req, res) => {
       const newNote = {
         title,
         text,
-        note_id: uuid(), 
+        id: uuid(), 
       }
     
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -56,6 +56,32 @@ api.post('/notes', (req, res) => {
             res.status(500).json('Error in posting note');
           }
             
+});
+
+// DELETE Route for a specific tip
+api.delete('/notes/:id', (req, res) => {
+  const noteId = req.params.id;
+  fs.readFile('db/db.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      // Make a new array of all notes except the one with the ID provided in the URL
+      // console.log(data)
+      const parseData = JSON.parse(data)
+      console.log(parseData)
+      // console.log(note)
+      console.log(noteId)
+      const result = parseData.filter((note) => note.id !== noteId);
+      console.log('--------------------------')
+      console.log(result)
+      // Save that array to the filesystem
+      fs.writeFile('db/db.json', JSON.stringify(result, null, 4), err =>
+      err ? console.error(err) : console.info('Data written to NOTES')
+      );
+      // Respond to the DELETE request
+      res.json(`Item has been deleted 🗑️`);
+    }
+    });
 });
 
 module.exports = api //where does this get called

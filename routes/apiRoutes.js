@@ -2,6 +2,7 @@ const api = require('express').Router();
 const { application } = require('express');
 const db = require('../db/db.json');
 const fs = require('fs');
+const uuid = require('./helpers/uuid')
 
 api.get('/notes', (req,res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -25,6 +26,7 @@ api.post('/notes', (req, res) => {
       const newNote = {
         title,
         text,
+        note_id: uuid(),
       };
   
       fs.readFile('./db/db.json', 'utf8', (err, data) => {

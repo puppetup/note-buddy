@@ -27,7 +27,7 @@ api.post('/notes', (req, res) => {
       const newNote = {
         title,
         text,
-        note_id: uuid(), //?
+        note_id: uuid(), 
       }
     
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -50,14 +50,12 @@ api.post('/notes', (req, res) => {
               status: 'success',
               body: newNote,
             }
-            if (parsedData) {
-            console.log(parsedData)
-            return res.json(parsedData)
+            console.log(response);
+            res.status(201).json(response);
           } else {
-            return res.json('Error in posting note')
+            res.status(500).json('Error in posting note');
           }
             
-    }
-  });
+});
 
 module.exports = api //where does this get called

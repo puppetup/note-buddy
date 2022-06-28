@@ -1,6 +1,6 @@
 const api = require('express').Router();
-const { application } = require('express');
-const db = require('../db/db.json');
+const { application } = require('express'); //?
+const db = require('../db/db.json'); //?
 const fs = require('fs');
 const uuid = require('./helpers/uuid')
 
@@ -26,7 +26,7 @@ api.post('/notes', (req, res) => {
       const newNote = {
         title,
         text,
-        note_id: uuid(),
+        note_id: uuid(), //?
       };
   
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -46,7 +46,7 @@ api.post('/notes', (req, res) => {
         }
       });
   
-      const response = {
+      const response = { //?
         status: 'success',
         body: newNote,
       };
@@ -57,4 +57,4 @@ api.post('/notes', (req, res) => {
     }
   });
 
-module.exports = api
+module.exports = api //where does this get called

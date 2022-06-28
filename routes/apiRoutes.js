@@ -2,14 +2,15 @@ const api = require('express').Router();
 const { application } = require('express'); //?
 const db = require('../db/db.json'); //?
 const fs = require('fs');
-const uuid = require('./helpers/uuid')
+const uuid = require('../helpers/uuid');
+const { parse } = require('path');
 
 api.get('/notes', (req,res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
         } else {
-        console.log(JSON.parse(data))
+        res.json(JSON.parse(data))
         }
     }
     )
@@ -27,8 +28,8 @@ api.post('/notes', (req, res) => {
         title,
         text,
         note_id: uuid(), //?
-      };
-  
+      }
+    
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
@@ -42,18 +43,20 @@ api.post('/notes', (req, res) => {
               writeErr
                 ? console.error(writeErr)
                 : console.info('Successfully added note')
-          );
-        }
-      });
-  
-      const response = { //?
-        status: 'success',
-        body: newNote,
-      };
-      console.log(response)
-      res.json(response);
-    } else {
-      res.json('Error in posting note');
+                )
+              }
+            })
+            const response = { 
+              status: 'success',
+              body: newNote,
+            }
+            if (parsedData) {
+            console.log(parsedData)
+            return res.json(parsedData)
+          } else {
+            return res.json('Error in posting note')
+          }
+            
     }
   });
 

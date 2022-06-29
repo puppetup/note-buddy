@@ -1,15 +1,17 @@
 const html = require('express').Router();
 const path = require('path');
 
-//
-html.get('/', (req, res) => //Wrong path?
+//sends landing page
+html.get('/', (req, res) => 
   res.sendFile(path.join(__dirname, '../public/index.html'))
 );
-
+//sends note page
 html.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/notes.html'))
 );
+//wildcard function sends landing page
+html.get('*', (req, res) => 
+  res.sendFile(path.join(__dirname, '../public/index.html'))
+);
 
-module.exports = html //where does this get called?
-
-//Wildcard?
+module.exports = html 

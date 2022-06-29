@@ -20,4 +20,4 @@ Note buddy is an app that allows the user to write text notes to themselves and 
 
 ## Media
 
-[Picture of the note taking app](./public/assets/images/note-buddy-preview.png)
+![Picture of the note taking app](./public/assets/images/note-buddy-preview.png)

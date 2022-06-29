@@ -1,6 +1,7 @@
 const html = require('express').Router();
 const path = require('path');
 
+//
 html.get('/', (req, res) => //Wrong path?
   res.sendFile(path.join(__dirname, '../public/index.html'))
 );

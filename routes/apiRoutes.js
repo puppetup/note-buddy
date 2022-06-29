@@ -5,6 +5,7 @@ const fs = require('fs');
 const uuid = require('../helpers/uuid');
 const { parse } = require('path');
 
+//get db.json and pass to front end
 api.get('/notes', (req,res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
@@ -29,7 +30,7 @@ api.post('/notes', (req, res) => {
         text,
         id: uuid(), 
       }
-    
+    //read and append new note to db
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
